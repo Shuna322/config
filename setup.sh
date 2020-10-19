@@ -15,9 +15,9 @@ helpFunction()
 while getopts "pay" opt
 do
    case "$opt" in
-      p ) pacman=true ;;
-      a ) apt=true ;;
-      y ) yum=true ;;
+      p ) pacman=1 ;;
+      a ) apt=1 ;;
+      y ) yum=1 ;;
       ? ) helpFunction ;; # Print helpFunction in case parameter is non-existent
    esac
 done
@@ -28,6 +28,11 @@ then
    helpFunction
 fi
 
+if (( pacman + apt + yum > 1 )); then
+  echo "Only one of '-p' '-a' '-y' is allowed"
+  exit 1
+fi
+
 # Install software if it's Arch
 if [ $pacman ]; then
 	yes | sudo pacman -Syu
@@ -36,14 +41,16 @@ if [ $pacman ]; then
 		exit $?
     fi
 	yes | sudo pacman -S grep colordiff iproute2 net-tools unzip sudo tar unrar zsh git tmux neovim wget htop vi vim openssh python3 code
-fi
 
-if [ $apt ]; then
-	echo "Not implemented yet"
-    exit 1
-fi 
+elif [ $apt ]; then
+  sudo apt update && sudo apt upgrade
+  if [ $? -ne 0 ]; then
+    echo "Please double check the package manager"
+    exit $?
+  fi
+  sudo apt install -y grep colordiff iproute2 net-tools unzip sudo tar unrar zsh git tmux neovim wget htop vi vim openssh python3 code
 
-if [ $yum ]; then
+elif [ $yum ]; then
     echo "Not implemented yet"
     exit 1
 fi
