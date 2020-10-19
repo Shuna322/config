@@ -128,7 +128,7 @@ agent_run_state=$(ssh-add -l >| /dev/null 3>&1; echo $?)
 
 if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
     agent_start
-    if compgen -G "$HOME/.ssh/*.key" > /dev/null; then
+    if compgen -G "$HOME/.ssh/*.key" | grep "key" >/dev/null; then
         ssh-add $HOME/.ssh/*.key
     fi
     
@@ -136,7 +136,7 @@ if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
         ssh-add $HOME/.ssh/id_rsa
     fi
 elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
-    if compgen -G "$HOME/.ssh/*.key" > /dev/null; then
+    if compgen -G "$HOME/.ssh/*.key" | grep "key" > /dev/null; then
         ssh-add $HOME/.ssh/*.key
     fi
 
