@@ -78,5 +78,6 @@ if [ $apt ]; then
     sed -i 's/UPDATECOMMAND/sudo apt update && sudo apt upgrade/' $HOME/.zshrc
 fi
 
+ps -ef | grep 'zsh' | grep -v grep | awk '{print $2}' | xargs -r kill -9 2>/dev/null
+
 zsh
-source $HOME/.zshrc
