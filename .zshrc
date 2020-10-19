@@ -215,6 +215,10 @@ alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
+# Ewww
+alias vi='vim'
+
+
 # update on one command
 alias update='UPDATECOMMAND'
 

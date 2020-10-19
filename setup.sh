@@ -40,15 +40,15 @@ if [ $pacman ]; then
 		echo "Please double check the package manager"
 		exit $?
     fi
-	yes | sudo pacman -S grep colordiff iproute2 net-tools unzip sudo tar unrar zsh git tmux neovim wget htop vi vim openssh python3 code
+	yes | sudo pacman -S grep colordiff iproute2 net-tools unzip sudo tar unrar zsh git tmux neovim wget htop vim openssh python3
 
 elif [ $apt ]; then
-  sudo apt update && sudo apt upgrade
+  sudo apt update && sudo apt upgrade -y
   if [ $? -ne 0 ]; then
     echo "Please double check the package manager"
     exit $?
   fi
-  sudo apt install -y grep colordiff iproute2 net-tools unzip sudo tar unrar zsh git tmux neovim wget htop vi vim openssh python3 code
+  sudo apt install -y grep colordiff iproute2 net-tools unzip sudo tar unrar zsh git tmux neovim wget htop vim python3
 
 elif [ $yum ]; then
     echo "Not implemented yet"
