@@ -18,8 +18,6 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir dir_writable vcs vi_mode)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 
-
-
 ###################
 
 # Set list of themes to pick from when loading at random
@@ -138,9 +136,7 @@ if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
         ssh-add $HOME/.ssh/id_rsa
     fi
 elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
-    ssh-add $HOME/.ssh/*.key
-
-    ifcompgen -G "$HOME/.ssh/*.key" > /dev/null; then
+    if compgen -G "$HOME/.ssh/*.key" > /dev/null; then
         ssh-add $HOME/.ssh/*.key
     fi
 
