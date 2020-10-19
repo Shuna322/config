@@ -56,7 +56,7 @@ elif [ $yum ]; then
 fi
 
 # Install oh-my-zsh
-sh -c "$(curl -fsSL --silent --insecure https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+yes | sh -c "$(curl -fsSL --silent --insecure https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 # Download antigen
 curl -L --silent --insecure git.io/antigen > $HOME/antigen.zsh
 /bin/cp -f ./.antigenrc $HOME/.antigenrc
