@@ -130,9 +130,23 @@ agent_run_state=$(ssh-add -l >| /dev/null 3>&1; echo $?)
 
 if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
     agent_start
-    ssh-add $HOME/.ssh/*.key
+    if [ -f "$HOME/.ssh/*.key" ]; then
+        ssh-add $HOME/.ssh/*.key
+    fi
+    
+    if [ -f "$HOME/.ssh/id_rsa" ]; then
+        ssh-add $HOME/.ssh/id_rsa
+    fi
 elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
     ssh-add $HOME/.ssh/*.key
+
+    if [ -f "$HOME/.ssh/*.key" ]; then
+        ssh-add $HOME/.ssh/*.key
+    fi
+
+    if [ -f "$HOME/.ssh/id_rsa" ]; then
+        ssh-add $HOME/.ssh/id_rsa
+    fi
 fi
 
 unset env
