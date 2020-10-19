@@ -57,6 +57,7 @@ mv $HOME/.zshrc $HOME/.zshrc.bak
 cp ./.zshrc $HOME/.zshrc
 cp ./.p10k.zsh $HOME/.p10k.zsh
 cp ./.vimrc $HOME/.vimrc
+cp ./.tmux.conf* $HOME/
 
 #echo "Downloading and installing Nerd Hack font"
 #curl -o ./Hack_Nerd.zip --silent --insecure -L https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
