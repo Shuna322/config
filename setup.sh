@@ -66,6 +66,11 @@ mv $HOME/.zshrc $HOME/.zshrc.bak
 /bin/cp -f ./.vimrc $HOME/.vimrc
 /bin/cp -f ./.tmux.conf* $HOME/
 
+mkdir $HOME/.vim/colors
+curl --insecure -L
+https://raw.github.com/altercation/vim-colors-solarized/master/colors/solarized.vim
+-o $HOME/.vim/colors/solarized.vim
+
 #echo "Downloading and installing Nerd Hack font"
 #curl -o ./Hack_Nerd.zip --silent --insecure -L https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
 #mkdir Hack_Nerd; unzip -o Hack_Nerd.zip -d ./Hack_Nerd
