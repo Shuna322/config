@@ -73,13 +73,15 @@ mv $HOME/.zshrc $HOME/.zshrc.bak
 # Install colors script
 git clone https://gitlab.com/dwt1/shell-color-scripts.git
 cd shell-color-scripts
-rm -rf /opt/shell-color-scripts || return 1
+sudo rm -rf /opt/shell-color-scripts || return 1
 sudo mkdir -p /opt/shell-color-scripts/colorscripts || return 1
 sudo cp -rf colorscripts/* /opt/shell-color-scripts/colorscripts
 sudo cp colorscript.sh /usr/bin/colorscript
 # optional for zsh completion
 sudo cp zsh_completion/_colorscript /usr/share/zsh/site-functions
+cd ..
 
+sudo rm -rf ./shell-color-scripts
 
 mkdir $HOME/.vim/colors
 curl --insecure -L https://raw.githubusercontent.com/sonph/onehalf/master/vim/colors/onehalfdark.vim -o $HOME/.vim/colors/onehalfdark.vim
