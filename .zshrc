@@ -244,4 +244,4 @@ alias diff='colordiff'
 # Show open ports
 alias ports='netstat -tulanp'
 
-
+colorscript -e crunch 

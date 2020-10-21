@@ -60,16 +60,29 @@ yes | sh -c "$(curl -fsSL --silent --insecure https://raw.github.com/ohmyzsh/ohm
 # Download antigen
 curl -L --silent --insecure git.io/antigen > $HOME/antigen.zsh
 /bin/cp -f ./.antigenrc $HOME/.antigenrc
+# Backup zshrc
 mv $HOME/.zshrc $HOME/.zshrc.bak
+# Copy config files
 /bin/cp -f ./.zshrc $HOME/.zshrc
 /bin/cp -f ./.p10k.zsh $HOME/.p10k.zsh
 /bin/cp -f ./.vimrc $HOME/.vimrc
 /bin/cp -f ./.tmux.conf* $HOME/
 
+# Install colors script
+git clone https://gitlab.com/dwt1/shell-color-scripts.git
+cd shell-color-scripts
+rm -rf /opt/shell-color-scripts || return 1
+sudo mkdir -p /opt/shell-color-scripts/colorscripts || return 1
+sudo cp -rf colorscripts/* /opt/shell-color-scripts/colorscripts
+sudo cp colorscript.sh /usr/bin/colorscript
+# optional for zsh completion
+sudo cp zsh_completion/_colorscript /usr/share/zsh/site-functions
+
+
 mkdir $HOME/.vim/colors
-curl --insecure -L
-https://raw.github.com/altercation/vim-colors-solarized/master/colors/solarized.vim
--o $HOME/.vim/colors/solarized.vim
+curl --insecure -L https://raw.githubusercontent.com/sonph/onehalf/master/vim/colors/onehalfdark.vim -o $HOME/.vim/colors/onehalfdark.vim
+
+
 
 #echo "Downloading and installing Nerd Hack font"
 #curl -o ./Hack_Nerd.zip --silent --insecure -L https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
