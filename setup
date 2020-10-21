@@ -88,11 +88,12 @@ curl --insecure -L https://raw.githubusercontent.com/sonph/onehalf/master/vim/co
 
 if [ $pacman ]; then
     sed -i 's/UPDATECOMMAND/sudo pacman -Syu/' $HOME/.zshrc
+    sed -i 's/# export ARCHFLAGS="-arch x86_64"/export ARCHFLAGS="-arch x86_64"/' $HOME/.zshrc
 fi
 if [ $apt ]; then    
     sed -i 's/UPDATECOMMAND/sudo apt update && sudo apt upgrade/' $HOME/.zshrc
 fi
 
-ps -ef | grep 'zsh' | grep -v grep | awk '{print $2}' | xargs -r kill -9 2>/dev/null
+# ps -ef | grep 'zsh' | grep -v grep | awk '{print $2}' | xargs -r kill -9 2>/dev/null
 
-zsh
+exec zsh
