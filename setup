@@ -83,7 +83,7 @@ cd ..
 
 sudo rm -rf ./shell-color-scripts
 
-mkdir $HOME/.vim/colors
+mkdir -p $HOME/.vim/colors
 curl --insecure -L https://raw.githubusercontent.com/sonph/onehalf/master/vim/colors/onehalfdark.vim -o $HOME/.vim/colors/onehalfdark.vim
 
 if [ $pacman ]; then
