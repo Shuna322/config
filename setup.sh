@@ -12,6 +12,14 @@ helpFunction()
    exit 1 # Exit script after printing help
 }
 
+checkmanager()
+{
+  if [ $? -ne 0 ]; then
+    echo "Please double check the package manager"
+    exit $?
+  fi
+}
+
 while getopts "pay" opt
 do
    case "$opt" in
@@ -36,23 +44,17 @@ fi
 # Install software if it's Arch
 if [ $pacman ]; then
 	yes | sudo pacman -Syu
-	if [ $? -ne 0 ]; then
-		echo "Please double check the package manager"
-		exit $?
-    fi
-	yes | sudo pacman -S grep colordiff iproute2 net-tools unzip sudo tar unrar zsh git tmux neovim wget htop vim openssh python3
+  checkmanager	
+  yes | sudo pacman -S grep colordiff iproute2 net-tools unzip sudo tar unrar zsh git tmux neovim wget htop vim openssh python3
 
 elif [ $apt ]; then
-  sudo apt update && sudo apt upgrade -y
-  if [ $? -ne 0 ]; then
-    echo "Please double check the package manager"
-    exit $?
-  fi
+  sudo apt update && sudo apt upgrade -y 
+  checkmanager	
   sudo apt install -y grep colordiff iproute2 net-tools unzip sudo tar unrar zsh git tmux neovim wget htop vim python3
 
 elif [ $yum ]; then
-    echo "Not implemented yet"
-    exit 1
+  echo "Not implemented, just installing"
+  checkmanager	
 fi
 
 # Install oh-my-zsh
@@ -81,13 +83,6 @@ sudo cp zsh_completion/_colorscript /usr/share/zsh/site-functions
 
 mkdir $HOME/.vim/colors
 curl --insecure -L https://raw.githubusercontent.com/sonph/onehalf/master/vim/colors/onehalfdark.vim -o $HOME/.vim/colors/onehalfdark.vim
-
-
-
-#echo "Downloading and installing Nerd Hack font"
-#curl -o ./Hack_Nerd.zip --silent --insecure -L https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
-#mkdir Hack_Nerd; unzip -o Hack_Nerd.zip -d ./Hack_Nerd
-#sudo cp ./Hack_Nerd/ttf/*.ttf /usr/share/fonts/
 
 if [ $pacman ]; then
     sed -i 's/UPDATECOMMAND/sudo pacman -Syu/' $HOME/.zshrc
