@@ -50,7 +50,7 @@ if [ $pacman ]; then
 elif [ $apt ]; then
   sudo apt update && sudo apt upgrade -y 
   checkmanager	
-  sudo apt install -y grep colordiff iproute2 net-tools unzip sudo tar unrar zsh git tmux neovim wget htop vim python3
+  sudo apt install -y grep colordiff iproute2 net-tools unzip sudo tar unrar zsh git tmux neovim wget htop vim python3 curl
 
 elif [ $yum ]; then
   echo "Not implemented, just installing"
@@ -58,17 +58,15 @@ elif [ $yum ]; then
 fi
 
 # Install oh-my-zsh
-yes | sh -c "$(curl -fsSL --silent --insecure https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 # Download antigen
-curl -L --silent --insecure git.io/antigen > $HOME/antigen.zsh
+curl -L --silent git.io/antigen > $HOME/antigen.zsh
 /bin/cp -f ./.antigenrc $HOME/.antigenrc
 # Backup zshrc
 mv $HOME/.zshrc $HOME/.zshrc.bak
 # Copy config files
 /bin/cp -f ./.zshrc $HOME/.zshrc
-/bin/cp -f ./.p10k.zsh $HOME/.p10k.zsh
 /bin/cp -f ./.vimrc $HOME/.vimrc
-/bin/cp -f ./.tmux.conf* $HOME/
 
 # Install colors script
 git clone https://gitlab.com/dwt1/shell-color-scripts.git
@@ -84,7 +82,7 @@ cd ..
 sudo rm -rf ./shell-color-scripts
 
 mkdir -p $HOME/.vim/colors
-curl --insecure -L https://raw.githubusercontent.com/sonph/onehalf/master/vim/colors/onehalfdark.vim -o $HOME/.vim/colors/onehalfdark.vim
+curl -L --silent https://raw.githubusercontent.com/sonph/onehalf/master/vim/colors/onehalfdark.vim -o $HOME/.vim/colors/onehalfdark.vim
 
 if [ $pacman ]; then
     sed -i 's/UPDATECOMMAND/sudo pacman -Syu/' $HOME/.zshrc
@@ -94,6 +92,6 @@ if [ $apt ]; then
     sed -i 's/UPDATECOMMAND/sudo apt update && sudo apt upgrade/' $HOME/.zshrc
 fi
 
-# ps -ef | grep 'zsh' | grep -v grep | awk '{print $2}' | xargs -r kill -9 2>/dev/null
+sudo -k chsh -s "/usr/bin/zsh" "$USER"
 
 exec zsh
